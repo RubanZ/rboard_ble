@@ -3,11 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:rboard_ble/devices.dart';
 import 'package:rboard_ble/core/ble.dart';
 
-import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final _ble = FlutterReactiveBle();
+
   await BLEManager().init();
   runApp(MyApp());
 }
