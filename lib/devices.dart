@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rboard_ble/core/ble.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
+import 'dart:async';
 
 class DevicesPage extends StatefulWidget {
   const DevicesPage({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class DevicesPage extends StatefulWidget {
 class _DevicesPageState extends State<DevicesPage> {
   List<DiscoveredDevice> deviceList = [];
 
+  Timer? bleTimer;
+
   Future<void> getList() async {
     var res = await BLEManager().listDevices();
 
@@ -26,6 +29,7 @@ class _DevicesPageState extends State<DevicesPage> {
   void initState() {
     super.initState();
     getList();
+    bleTimer = Timer.periodic(Duration(seconds: 5), (Timer t) => getList());
   }
 
   Widget _cardDevice(DiscoveredDevice device) {
